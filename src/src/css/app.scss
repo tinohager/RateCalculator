@@ -1,1 +1,32 @@
 // app global css in SCSS form
+h1 {
+  font-size: clamp(2rem, -0.2rem + 4vw, 3rem) !important;
+  font-weight: 600;
+  line-height: clamp(2.2rem, -0.2rem + 4vw, 3.2rem) !important;
+  margin-block-start: 0em;
+  margin-block-end: 0.4em;
+}
+
+h2 {
+  font-size: clamp(1.3rem, -0.4rem + 4vw, 1.6em) !important;
+  font-weight: 400;
+  line-height: clamp(1.5rem, -0.4rem + 4vw, 1.8rem) !important;
+  margin-block-start: 0em;
+  margin-block-end: 0.4em;
+}
+
+h3 {
+  font-size: clamp(1.5rem, -0.4rem + 4vw, 2.2rem) !important;
+  font-weight: 300;
+  line-height: normal;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+h4 {
+  font-size: min(max(2vh, 1.5em), 2.5em);
+  font-weight: 600;
+  line-height: normal;
+  margin-block-start: 0em;
+  margin-block-end: 0.4em;
+}
