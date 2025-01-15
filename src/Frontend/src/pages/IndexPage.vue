@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 const grossSalary = ref<number>(3000)
 const employess = ref(1)
@@ -41,6 +44,42 @@ const availableAnnualHoursPerEmployee = computed(() => {
   return (availableWorkingHours / 100) * employeeProductivity.value
 })
 
+const markerLabelSalary = computed(() => {
+  if ($q.screen.lt.sm) {
+    return [
+      { value: 2000, label: '2000€' },
+      { value: 10000, label: '10000€' },
+    ]
+  }
+
+  return [
+    { value: 2000, label: '2000€' },
+    { value: 3000, label: '3000€' },
+    { value: 4000, label: '4000€' },
+    { value: 5000, label: '5000€' },
+    { value: 6000, label: '6000€' },
+    { value: 10000, label: '10000€' },
+  ]
+})
+
+const markerLabelEmployees = computed(() => {
+  if ($q.screen.lt.sm) {
+    return [
+      { value: 1, label: '1' },
+      { value: 500, label: '500' },
+    ]
+  }
+
+  return [
+    { value: 1, label: '1' },
+    { value: 10, label: '10' },
+    { value: 50, label: '50' },
+    { value: 100, label: '100' },
+    { value: 200, label: '200' },
+    { value: 500, label: '500' },
+  ]
+})
+
 function formatCurrency(value: number) {
   const formatted = value
     .toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
@@ -50,23 +89,25 @@ function formatCurrency(value: number) {
 </script>
 
 <template>
-  <q-page padding>
-    <div class="row q-col-gutter-md q-mb-md">
-      <div class="col-6">
-        <q-card flat bordered>
-          <q-card-section>
-            Benötigter Stundenlohn
-            <h1>{{ requiredHourlyWage }}€</h1>
-          </q-card-section>
-        </q-card>
-      </div>
-      <div class="col-6">
-        <q-card flat bordered>
-          <q-card-section>
-            Jährliche Lohnkosten
-            <h1>{{ formatCurrency(annualWageCosts) }}€</h1>
-          </q-card-section>
-        </q-card>
+  <q-page>
+    <div style="position: sticky; top: 0; z-index: 2000" class="bg-white">
+      <div class="row q-mb-md">
+        <div class="col-12 col-md-6 q-pa-sm">
+          <q-card flat bordered>
+            <q-card-section>
+              Benötigter Stundenlohn
+              <div class="text-h1">{{ requiredHourlyWage }}€</div>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12 col-md-6 q-pa-sm">
+          <q-card flat bordered>
+            <q-card-section>
+              Jährliche Lohnkosten
+              <div class="text-h1">{{ formatCurrency(annualWageCosts) }}€</div>
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
 
@@ -76,47 +117,33 @@ function formatCurrency(value: number) {
       </q-card-section>
       <q-card-section>
         Monatlicher Bruttogehalt
+        <q-badge color="grey-7" class="q-pa-sm">{{ grossSalary }}€</q-badge>
         <q-slider
           v-model="grossSalary"
           :min="2000"
           :max="10000"
           :step="100"
-          :marker-labels="[
-            { value: 2000, label: '2000' },
-            { value: 3000, label: '3000' },
-            { value: 4000, label: '4000' },
-            { value: 5000, label: '5000' },
-            { value: 6000, label: '6000' },
-            { value: 10000, label: '10000' },
-          ]"
+          thumb-size="40px"
+          :marker-labels="markerLabelSalary"
           snap
           switch-label-side
-          label-always
-          :label-value="`${grossSalary} €`"
           class="q-mb-md"
         />
 
         Anzahl Mitarbeiter
+        <q-badge color="grey-7" class="q-pa-sm">{{ employess }} Mitarbeiter</q-badge>
         <q-slider
           v-model="employess"
           :min="1"
           :max="500"
-          :marker-labels="[
-            { value: 1, label: '1' },
-            { value: 10, label: '10' },
-            { value: 50, label: '50' },
-            { value: 100, label: '100' },
-            { value: 200, label: '200' },
-            { value: 500, label: '500' },
-          ]"
+          :marker-labels="markerLabelEmployees"
           snap
           switch-label-side
-          label-always
-          :label-value="`${employess} Mitarbeiter`"
           class="q-mb-md"
         />
 
         Monatliche Fixkosten
+        <q-badge color="grey-7" class="q-pa-sm">{{ monthlyFixedCosts }} €</q-badge>
         <q-slider
           v-model="monthlyFixedCosts"
           :min="500"
@@ -124,12 +151,11 @@ function formatCurrency(value: number) {
           :step="100"
           snap
           switch-label-side
-          label-always
-          :label-value="`${monthlyFixedCosts} €`"
           class="q-mb-md"
         />
 
         Krankheitstage pro Jahr
+        <q-badge color="grey-7" class="q-pa-sm">{{ averageSickDays }} Tage</q-badge>
         <q-slider
           v-model="averageSickDays"
           :min="1"
@@ -146,12 +172,11 @@ function formatCurrency(value: number) {
             { value: 20, label: '20' },
           ]"
           switch-label-side
-          label-always
-          :label-value="`${averageSickDays} Krankheitstage`"
           class="q-mb-md"
         />
 
         Urlaubstage pro Jahr
+        <q-badge color="grey-7" class="q-pa-sm">{{ holidaysPerYear }} Tage</q-badge>
         <q-slider
           v-model="holidaysPerYear"
           :min="25"
@@ -162,22 +187,16 @@ function formatCurrency(value: number) {
             { value: 30, label: '30' },
           ]"
           switch-label-side
-          label-always
-          :label-value="`${holidaysPerYear} Urlaubstage`"
           class="q-mb-md"
         />
 
-        Produkivität ({{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Stunden
-        pro Tag | {{ availableAnnualHoursPerEmployee.toFixed(0) }} Stunden pro Jahr)
-        <q-slider
-          v-model="employeeProductivity"
-          :min="5"
-          :max="100"
-          :step="5"
-          switch-label-side
-          label-always
-          :label-value="employeeProductivity + ' %'"
-        />
+        Produkivität
+        <q-badge color="grey-7" class="q-pa-sm">{{ employeeProductivity }} %</q-badge><br />
+        <div class="text-caption text-grey">
+          {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Stunden pro Tag |
+          {{ availableAnnualHoursPerEmployee.toFixed(0) }} Stunden pro Jahr
+        </div>
+        <q-slider v-model="employeeProductivity" :min="5" :max="100" :step="5" switch-label-side />
       </q-card-section>
     </q-card>
   </q-page>

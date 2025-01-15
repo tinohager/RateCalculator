@@ -2,7 +2,7 @@
 
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header>
       <q-toolbar>
         <q-toolbar-title>Stundenlohn Rechner</q-toolbar-title>
       </q-toolbar>
