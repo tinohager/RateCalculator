@@ -5,6 +5,8 @@
     <q-header>
       <q-toolbar>
         <q-toolbar-title>Stundenlohn Rechner</q-toolbar-title>
+        <q-space />
+        <q-btn stretch label="GitHub" href="https://github.com/tinohager/RateCalculator" />
       </q-toolbar>
     </q-header>
 

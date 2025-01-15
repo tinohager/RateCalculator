@@ -1,8 +1,8 @@
 {
   "name": "q2",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "description": "Ermittle den benötigten Stundenlohn für deine Projekte",
+  "productName": "Stundenlohn Rechner",
   "author": "Tino Hager <tino.hager@nager.at>",
   "type": "module",
   "private": true,

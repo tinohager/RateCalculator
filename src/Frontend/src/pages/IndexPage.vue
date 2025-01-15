@@ -20,6 +20,12 @@ const annualWageCosts = computed(() => {
   return totalCostsOfTheCompanyPerEmployee * employess.value
 })
 
+const annualFixedCosts = computed(() => {
+  const annualFixedCosts = monthlyFixedCosts.value * 12
+
+  return annualFixedCosts
+})
+
 const requiredHourlyWage = computed(() => {
   const annualFixedCosts = monthlyFixedCosts.value * 12
   const temp =
@@ -92,7 +98,7 @@ function formatCurrency(value: number) {
   <q-page>
     <div style="position: sticky; top: 0; z-index: 2000" class="bg-white">
       <div class="row q-mb-md">
-        <div class="col-12 col-md-6 q-pa-sm">
+        <div class="col-12 col-md-12 col-lg-4 q-pa-sm">
           <q-card flat bordered>
             <q-card-section>
               Benötigter Stundenlohn
@@ -100,7 +106,7 @@ function formatCurrency(value: number) {
             </q-card-section>
           </q-card>
         </div>
-        <div class="col-12 col-md-6 q-pa-sm">
+        <div class="col-12 col-md-6 col-lg-4 q-pa-sm">
           <q-card flat bordered>
             <q-card-section>
               Jährliche Lohnkosten
@@ -108,107 +114,117 @@ function formatCurrency(value: number) {
             </q-card-section>
           </q-card>
         </div>
+        <div class="col-12 col-md-6 col-lg-4 q-pa-sm">
+          <q-card flat bordered>
+            <q-card-section>
+              Jährliche Fixkosten
+              <div class="text-h1">{{ formatCurrency(annualFixedCosts) }}€</div>
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
 
-    <q-card flat bordered class="q-pa-md">
-      <q-card-section>
-        <div class="text-h6">Einstellungen für die Berechnung</div>
-      </q-card-section>
-      <q-card-section>
-        Monatlicher Bruttogehalt
-        <q-badge color="grey-7" class="q-pa-sm">{{ grossSalary }}€</q-badge>
-        <q-slider
-          v-model="grossSalary"
-          :min="2000"
-          :max="10000"
-          :step="100"
-          thumb-size="40px"
-          :marker-labels="markerLabelSalary"
-          snap
-          switch-label-side
-          class="q-mb-md"
-        />
+    <div class="q-pa-sm">
+      <q-card flat bordered class="q-pa-md">
+        <q-card-section>
+          <div class="text-h6">Einstellungen für die Berechnung</div>
+        </q-card-section>
+        <q-card-section>
+          Monatlicher Bruttogehalt
+          <q-badge color="grey-7" class="q-pa-sm">{{ grossSalary }}€</q-badge>
+          <q-slider
+            v-model="grossSalary"
+            :min="2000"
+            :max="10000"
+            :step="100"
+            thumb-size="40px"
+            :marker-labels="markerLabelSalary"
+            snap
+            switch-label-side
+            class="q-mb-md"
+          />
 
-        Anzahl Mitarbeiter
-        <q-badge color="grey-7" class="q-pa-sm">{{ employess }} Mitarbeiter</q-badge>
-        <q-slider
-          v-model="employess"
-          :min="1"
-          :max="500"
-          thumb-size="40px"
-          :marker-labels="markerLabelEmployees"
-          snap
-          switch-label-side
-          class="q-mb-md"
-        />
+          Anzahl Mitarbeiter
+          <q-badge color="grey-7" class="q-pa-sm">{{ employess }} Mitarbeiter</q-badge>
+          <q-slider
+            v-model="employess"
+            :min="1"
+            :max="500"
+            thumb-size="40px"
+            :marker-labels="markerLabelEmployees"
+            snap
+            switch-label-side
+            class="q-mb-md"
+          />
 
-        Monatliche Fixkosten
-        <q-badge color="grey-7" class="q-pa-sm">{{ monthlyFixedCosts }} €</q-badge>
-        <q-slider
-          v-model="monthlyFixedCosts"
-          :min="500"
-          :max="5000"
-          :step="100"
-          thumb-size="40px"
-          snap
-          switch-label-side
-          class="q-mb-md"
-        />
+          Monatliche Fixkosten
+          <q-badge color="grey-7" class="q-pa-sm">{{ monthlyFixedCosts }} €</q-badge>
+          <q-slider
+            v-model="monthlyFixedCosts"
+            :min="500"
+            :max="5000"
+            :step="100"
+            thumb-size="40px"
+            snap
+            switch-label-side
+            class="q-mb-md"
+          />
 
-        Krankheitstage pro Jahr
-        <q-badge color="grey-7" class="q-pa-sm">{{ averageSickDays }} Tage</q-badge>
-        <q-slider
-          v-model="averageSickDays"
-          :min="1"
-          :max="20"
-          thumb-size="40px"
-          markers
-          :marker-labels="[
-            { value: 1, label: '1' },
-            { value: 2, label: '2' },
-            { value: 3, label: '3' },
-            { value: 4, label: '4' },
-            { value: 5, label: '5' },
-            { value: 10, label: '10' },
-            { value: 15, label: '15' },
-            { value: 20, label: '20' },
-          ]"
-          switch-label-side
-          class="q-mb-md"
-        />
+          Krankheitstage pro Jahr
+          <q-badge color="grey-7" class="q-pa-sm">{{ averageSickDays }} Tage</q-badge>
+          <q-slider
+            v-model="averageSickDays"
+            :min="1"
+            :max="20"
+            thumb-size="40px"
+            markers
+            :marker-labels="[
+              { value: 1, label: '1' },
+              { value: 2, label: '2' },
+              { value: 3, label: '3' },
+              { value: 4, label: '4' },
+              { value: 5, label: '5' },
+              { value: 10, label: '10' },
+              { value: 15, label: '15' },
+              { value: 20, label: '20' },
+            ]"
+            switch-label-side
+            class="q-mb-md"
+          />
 
-        Urlaubstage pro Jahr
-        <q-badge color="grey-7" class="q-pa-sm">{{ holidaysPerYear }} Tage</q-badge>
-        <q-slider
-          v-model="holidaysPerYear"
-          :min="25"
-          :max="30"
-          thumb-size="40px"
-          markers
-          :marker-labels="[
-            { value: 25, label: '25' },
-            { value: 30, label: '30' },
-          ]"
-          switch-label-side
-          class="q-mb-md"
-        />
+          Urlaubstage pro Jahr
+          <q-badge color="grey-7" class="q-pa-sm">{{ holidaysPerYear }} Tage</q-badge>
+          <q-slider
+            v-model="holidaysPerYear"
+            :min="25"
+            :max="30"
+            thumb-size="40px"
+            markers
+            :marker-labels="[
+              { value: 25, label: '25' },
+              { value: 30, label: '30' },
+            ]"
+            switch-label-side
+            class="q-mb-md"
+          />
 
-        Produkivität
-        <q-badge color="grey-7" class="q-pa-sm">{{ employeeProductivity }} %</q-badge><br />
-        <div class="text-caption text-grey">
-          {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Stunden pro Tag |
-          {{ availableAnnualHoursPerEmployee.toFixed(0) }} Stunden pro Jahr
-        </div>
-        <q-slider
-          v-model="employeeProductivity"
-          :min="5"
-          :max="100"
-          :step="5"
-          thumb-size="40px"
-          switch-label-side
-        />
-      </q-card-section>
-    </q-card>
+          Produkivität
+          <q-badge color="grey-7" class="q-pa-sm">{{ employeeProductivity }} %</q-badge><br />
+          <div class="text-caption text-grey">
+            {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Stunden pro Tag |
+            {{ availableAnnualHoursPerEmployee.toFixed(0) }} Stunden pro Jahr
+          </div>
+          <q-slider
+            v-model="employeeProductivity"
+            :min="5"
+            :max="100"
+            :step="5"
+            thumb-size="40px"
+            switch-label-side
+          />
+        </q-card-section>
+      </q-card>
+    </div>
   </q-page>
 </template>
