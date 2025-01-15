@@ -136,6 +136,7 @@ function formatCurrency(value: number) {
           v-model="employess"
           :min="1"
           :max="500"
+          thumb-size="40px"
           :marker-labels="markerLabelEmployees"
           snap
           switch-label-side
@@ -149,6 +150,7 @@ function formatCurrency(value: number) {
           :min="500"
           :max="5000"
           :step="100"
+          thumb-size="40px"
           snap
           switch-label-side
           class="q-mb-md"
@@ -160,6 +162,7 @@ function formatCurrency(value: number) {
           v-model="averageSickDays"
           :min="1"
           :max="20"
+          thumb-size="40px"
           markers
           :marker-labels="[
             { value: 1, label: '1' },
@@ -181,6 +184,7 @@ function formatCurrency(value: number) {
           v-model="holidaysPerYear"
           :min="25"
           :max="30"
+          thumb-size="40px"
           markers
           :marker-labels="[
             { value: 25, label: '25' },
@@ -196,7 +200,14 @@ function formatCurrency(value: number) {
           {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Stunden pro Tag |
           {{ availableAnnualHoursPerEmployee.toFixed(0) }} Stunden pro Jahr
         </div>
-        <q-slider v-model="employeeProductivity" :min="5" :max="100" :step="5" switch-label-side />
+        <q-slider
+          v-model="employeeProductivity"
+          :min="5"
+          :max="100"
+          :step="5"
+          thumb-size="40px"
+          switch-label-side
+        />
       </q-card-section>
     </q-card>
   </q-page>
