@@ -209,7 +209,7 @@ function formatCurrency(value: number) {
             class="q-mb-md"
           />
 
-          Produkivität
+          Produktivität
           <q-badge color="grey-7" class="q-pa-sm">{{ employeeProductivity }} %</q-badge><br />
           <div class="text-caption text-grey">
             {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Stunden pro Tag |
