@@ -47,7 +47,6 @@ export default defineConfig((/* ctx */) => {
 
       afterBuild() {
         const distDir = path.join(__dirname, 'dist/spa')
-
         fs.copyFileSync(path.join(distDir, 'index.html'), path.join(distDir, '404.html'))
       },
 
