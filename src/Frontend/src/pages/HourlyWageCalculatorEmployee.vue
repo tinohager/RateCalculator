@@ -105,7 +105,7 @@ function formatCurrency(value: number) {
               <div class="text-h1">{{ requiredHourlyWage }}€</div>
               <q-badge>
                 bei
-                {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} Verrechenbaren
+                {{ ((workingHoursPerDay * employeeProductivity) / 100).toFixed(1) }} abrechenbaren
                 Stunden pro Tag
               </q-badge>
             </q-card-section>
